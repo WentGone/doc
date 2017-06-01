@@ -159,4 +159,39 @@
 
 <h1>css属性</h1>
 
+1. 文字属性	
+
+		font-size:大小
+		font-family:字体类型
+
+2. 文本属性
+
+		color:颜色
+		text-decoration:下划线
+			属性值:none underline
+		text-align:对齐方式
+			属性值:left center right
+
+3. 背景属性
+
+		background-color:背景颜色
+		background-image:背景图片
+			属性值:url("图片地址")
+		background-repeat:平铺方式
+			属性值:默认横纵向平铺
+					repeat:横纵向平铺
+					no-repeat:不平铺
+					repeat-x:横向平铺
+					repeat-y:纵向平铺
+
+4. 列表属性
+
+		list-style-type:列表项前的小标志
+		list-style-image:列表前的小图片
+			属性值:url("图片地址")
+
+5. 尺寸属性
+6. 显示属性
+7. 浮动属性
+
 <h1>css盒子模型</h1>
