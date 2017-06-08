@@ -124,3 +124,35 @@ public class UserController implements Controller{
 SpringMVC使用命令设计模式
 
 乱码问题：
+post:在web.xml中
+```
+<filter>
+    <filter-name>chracterEncoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>chracterEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
+时间转换问题：
+在Controller中有个initBinder方法在此方法中进行日期转换
+```
+    @Override
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+        String birthday = request.getParameter("birthday");
+        if (birthday.contains("/")){
+            binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy/MM/dd"),true));
+        }else {
+            binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+        }
+    }
+```
+
+<h3>注解开发</h3>
+
