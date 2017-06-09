@@ -156,3 +156,85 @@ post:在web.xml中
 
 <h3>注解开发</h3>
 
+注解入门：
+创建一个web工程，导入jar文件
+
+配置入口文件web.xml
+
+配置springmvc.xml
+```
+ <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+ <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>
+
+<context:component-scan base-package="com.wg">
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+</context:component-scan>
+```
+或者
+```
+<context:component-scan base-package="com.wg">
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+</context:component-scan>
+<mvc:annotation-driven />
+```
+
+定义一个Controller(不需要继承Controller),加入注解**@Controller**
+写一个公共方法，用于返回的逻辑视图，加入注解**@RequestMapping("/地址")**请求映射
+几种写法：
+@RequestMapping("/user")
+@RequestMapping(value = "/user")
+@RequestMapping(value = "/user",method=RequestMethod.GET)
+@RequestMapping(value = "/user",method={RequestMethod.Get,RequestMethod.POST})
+```
+@Controller
+public class UserController {
+    @RequestMapping("/user")
+    public String getUser(){
+        return "user";
+    }
+}
+```
+<h3>SpringMVC封装参数</h3>
+注意：springmvc没有成员变量，需要传递的参数对象放到方法中，当请求方法时，方法里的对象会自动被创建，需要封装的参数会自动被封装方法对象（传递时跟参数名相同）
+
+基本数据类型
+```
+/**
+ *访问时传递的参数要和方法中的参数名一致
+ *
+**/
+@RequestMapping("user")
+public String getUser(int id){
+    System.out.println(id);
+    return "user";
+}
+```
+
+String类型(同Int)
+
+传递对象POJO
+
+对于接受集合类型参数
+方法里边不能直接传递list集合，和map集合类型参数，需要将list、map封装到包装类中
+
+
+接受Map类型参数
+前端 value = maps['username']   &nbsp;&nbsp;&nbsp;{属性名['key名']}
+
+
+struts2与springmvc的区别:
+##实现机制
+struts2底层是过滤器，是基于过滤器实现
+springmvc是基于servlet实现。
+
+
+##执行速度
+struts2是多例的
+springmvc是单例的
+
+##参数封装
+struts2参数封装是基于属性封装
+springmvc是基于方法封装。颗粒更细
+
+<h3>页面参数回显</h3>
+Springmvc使用Model对象，Model对象相当于域application。Application对象中的数据可以使用el表达式进行获取
